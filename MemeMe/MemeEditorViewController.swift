@@ -16,7 +16,9 @@ class MemeEditorViewController : UIViewController {
     @IBOutlet weak var previewImage: UIImageView!
     
     @IBOutlet weak var camaraButton: UIBarButtonItem!
-    
+
+    let keyboardNotifications = [UIKeyboardWillShowNotification : "keyboardWillShow:", UIKeyboardWillHideNotification: "keyboardWillHide:"]
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
 
@@ -46,16 +48,30 @@ class MemeEditorViewController : UIViewController {
     // MARK: Keyboard handling and notifications
     
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        for (nameNotification, selectorNotification) in keyboardNotifications {
+            NSNotificationCenter.defaultCenter().addObserver(
+                self, selector: Selector(selectorNotification),
+                name: nameNotification, object: nil)
+        }
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        for nameNotification in keyboardNotifications.keys {
+            NSNotificationCenter.defaultCenter().removeObserver(
+                self, name: nameNotification,
+                object: nil)
+        }
     }
 
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
             self.view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if bottomTextField.isFirstResponder() {
+            self.view.frame.origin.y += getKeyboardHeight(notification)
         }
     }
     

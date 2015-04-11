@@ -410,6 +410,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="activityButton" destination="U4T-S1-eF2" id="rHF-F2-GO4"/>
                         <outlet property="bottomTextField" destination="h55-th-23m" id="Y98-o6-3oW"/>
                         <outlet property="camaraButton" destination="aj6-Dr-dMC" id="shi-co-gIf"/>
                         <outlet property="previewImage" destination="MZe-c7-lQd" id="5ny-Ov-A1n"/>

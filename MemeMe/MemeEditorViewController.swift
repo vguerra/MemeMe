@@ -12,10 +12,10 @@ class MemeEditorViewController : UIViewController {
 
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
-    
     @IBOutlet weak var previewImage: UIImageView!
     
     @IBOutlet weak var camaraButton: UIBarButtonItem!
+    @IBOutlet weak var activityButton: UIBarButtonItem!
 
     // Dictionary that contains the keyboard notifications we want 
     // to subscribe to / unsubscribe from
@@ -125,6 +125,8 @@ extension MemeEditorViewController : UIImagePickerControllerDelegate, UINavigati
         didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             previewImage.image = image
+            // Now we enable the Activity button
+            activityButton.enabled = true
             picker.dismissViewControllerAnimated(true, completion: nil)
         }
     }

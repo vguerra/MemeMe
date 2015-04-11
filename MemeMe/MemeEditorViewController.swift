@@ -17,13 +17,17 @@ class MemeEditorViewController : UIViewController {
     
     @IBOutlet weak var camaraButton: UIBarButtonItem!
 
-    let keyboardNotifications = [UIKeyboardWillShowNotification : "keyboardWillShow:", UIKeyboardWillHideNotification: "keyboardWillHide:"]
+    // Dictionary that contains the keyboard notifications we want 
+    // to subscribe to / unsubscribe from
+    let keyboardNotifications = [UIKeyboardWillShowNotification : "keyboardWillShow:",
+        UIKeyboardWillHideNotification: "keyboardWillHide:"]
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
 
         // Checking if Camera is available
-        camaraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        let cameraSourceType = UIImagePickerControllerSourceType.Camera
+        camaraButton.enabled = UIImagePickerController.isSourceTypeAvailable(cameraSourceType)
 
         // Styling text fields
         let memeTextAttributes = [
@@ -34,7 +38,9 @@ class MemeEditorViewController : UIViewController {
         ]
         
         topTextField.defaultTextAttributes = memeTextAttributes
+        topTextField.textAlignment = NSTextAlignment.Center
         bottomTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.textAlignment = NSTextAlignment.Center
         
         // Keyboard Notifications
         subscribeToKeyboardNotifications()
@@ -45,8 +51,18 @@ class MemeEditorViewController : UIViewController {
         unsubscribeFromKeyboardNotifications()
     }
     
-    // MARK: Keyboard handling and notifications
+    @IBAction func showActivityController(sender: AnyObject) {
+        let activityController = UIActivityViewController(activityItems: [],
+            applicationActivities: nil)
+        self.presentViewController(activityController, animated: true, completion: nil)
+    }
     
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    // MARK: Keyboard handling and notifications
     func subscribeToKeyboardNotifications() {
         for (nameNotification, selectorNotification) in keyboardNotifications {
             NSNotificationCenter.defaultCenter().addObserver(
@@ -83,15 +99,15 @@ class MemeEditorViewController : UIViewController {
     // MARK: Picking Image from Camara and Albums
     
     @IBAction func pickImageFromCamara(sender: UIBarButtonItem) {
-        presentImagePicker(UIImagePickerControllerSourceType.Camera)
+        presentImagePickerWithSource(UIImagePickerControllerSourceType.Camera)
     }
     
     @IBAction func pickImageFromAlbum(sender: UIBarButtonItem) {
-        presentImagePicker(UIImagePickerControllerSourceType.PhotoLibrary)
+        presentImagePickerWithSource(UIImagePickerControllerSourceType.PhotoLibrary)
     }
     
     /// Showing an ImagePicker given a Source Type.
-    func presentImagePicker(sourceType: UIImagePickerControllerSourceType) {
+    func presentImagePickerWithSource(sourceType: UIImagePickerControllerSourceType) {
         let imagePickerView = UIImagePickerController()
         imagePickerView.delegate = self
         imagePickerView.sourceType = sourceType
@@ -105,7 +121,8 @@ class MemeEditorViewController : UIViewController {
 
 extension MemeEditorViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             previewImage.image = image
             picker.dismissViewControllerAnimated(true, completion: nil)

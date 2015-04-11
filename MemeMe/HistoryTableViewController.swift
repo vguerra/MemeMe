@@ -11,12 +11,14 @@ import UIKit
 class HistoryTableViewController : UITableViewController {
     var memes : [Int]?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "showMemeEditor")
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
-        if memes == nil {
-            showMemeEditor()
-        }
+
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,7 +29,6 @@ class HistoryTableViewController : UITableViewController {
     
     func showMemeEditor() {
         let memeEditorController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        self.navigationController?.pushViewController(memeEditorController, animated: true)
-    
+        self.presentViewController(memeEditorController, animated: true, completion: nil)
     }
 }

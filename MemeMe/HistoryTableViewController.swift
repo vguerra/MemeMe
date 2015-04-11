@@ -9,20 +9,25 @@
 import UIKit
 
 class HistoryTableViewController : UITableViewController {
-    var memes : [Int]?
+    var memes : [Meme]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "showMemeEditor")
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
+            target: self, action: "showMemeEditor")
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        memes = appDelegate.memes
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let memesCount = memes?.count {
+            return memesCount
         }
         return 0
     }

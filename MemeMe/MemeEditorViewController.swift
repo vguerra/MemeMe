@@ -16,6 +16,14 @@ class MemeEditorViewController : UIViewController {
     
     @IBOutlet weak var camaraButton: UIBarButtonItem!
     @IBOutlet weak var activityButton: UIBarButtonItem!
+    
+    @IBOutlet weak var topToolBar: UIToolbar!
+    @IBOutlet weak var bottomToolbar: UIToolbar!
+    
+    var memedImage: UIImage?
+    var meme: Meme?
+    
+    var memes:[Meme]!
 
     // Dictionary that contains the keyboard notifications we want 
     // to subscribe to / unsubscribe from
@@ -36,7 +44,6 @@ class MemeEditorViewController : UIViewController {
             NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName : -2.0
         ]
-        
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = NSTextAlignment.Center
         bottomTextField.defaultTextAttributes = memeTextAttributes
@@ -44,6 +51,7 @@ class MemeEditorViewController : UIViewController {
         
         // Keyboard Notifications
         subscribeToKeyboardNotifications()
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -52,15 +60,31 @@ class MemeEditorViewController : UIViewController {
     }
     
     @IBAction func showActivityController(sender: AnyObject) {
-        let activityController = UIActivityViewController(activityItems: [],
+        memedImage = generateMemedImage()
+        var activityController = UIActivityViewController(activityItems: [memedImage!],
             applicationActivities: nil)
+        activityController.completionWithItemsHandler = activityControllerFinished
+        
         self.presentViewController(activityController, animated: true, completion: nil)
+    }
+    
+    func activityControllerFinished(activityType:String!, completed: Bool,
+        returnedItems: [AnyObject]!, activityError: NSError!) {
+            if completed {
+                saveSharedMeme()
+            }
     }
     
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func saveSharedMeme() {
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
+            image: previewImage.image!, memedImage: memedImage!)
+        (UIApplication.sharedApplication().delegate
+            as! AppDelegate).memes.append(meme)
+    }
     
     // MARK: Keyboard handling and notifications
     func subscribeToKeyboardNotifications() {
@@ -113,7 +137,21 @@ class MemeEditorViewController : UIViewController {
         imagePickerView.sourceType = sourceType
         self.presentViewController(imagePickerView, animated: true, completion: nil)
     }
-
+    
+    // Generate MemedImage
+    func generateMemedImage() -> UIImage {
+        topToolBar.hidden = true
+        bottomToolbar.hidden = true
+        
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        topToolBar.hidden = false
+        bottomToolbar.hidden = false
+        return memedImage
+    }
     
 }
 

@@ -130,7 +130,7 @@
             <objects>
                 <collectionViewController id="5ca-nC-bKc" customClass="HistoryCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2kc-EP-Ecb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ebd-ai-8IE">
@@ -387,6 +387,19 @@
                                 <exclude reference="sR9-iL-Q9x"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="xOd-5e-aoO"/>
+                                <exclude reference="12p-N7-3Gl"/>
+                                <exclude reference="PCT-VP-AmT"/>
+                                <exclude reference="l72-Vo-HpM"/>
+                                <exclude reference="8TX-gy-cJj"/>
+                                <exclude reference="AU9-XE-KvW"/>
+                                <exclude reference="Eaj-Cz-ZjX"/>
+                                <exclude reference="KVr-GU-9tR"/>
+                                <exclude reference="piW-sz-qxm"/>
+                                <exclude reference="2sk-ZW-nPt"/>
+                                <exclude reference="nyU-oX-NMg"/>
+                                <exclude reference="wDc-Qe-eEn"/>
+                                <exclude reference="yhp-Ep-f2R"/>
                                 <exclude reference="My4-Tc-88E"/>
                                 <exclude reference="OE8-nc-iOc"/>
                                 <exclude reference="g81-WL-rg3"/>
@@ -400,19 +413,6 @@
                                 <exclude reference="bai-BR-Pt0"/>
                                 <exclude reference="kGt-mW-OhX"/>
                                 <exclude reference="rYb-Yk-7jb"/>
-                                <exclude reference="12p-N7-3Gl"/>
-                                <exclude reference="PCT-VP-AmT"/>
-                                <exclude reference="l72-Vo-HpM"/>
-                                <exclude reference="8TX-gy-cJj"/>
-                                <exclude reference="AU9-XE-KvW"/>
-                                <exclude reference="Eaj-Cz-ZjX"/>
-                                <exclude reference="KVr-GU-9tR"/>
-                                <exclude reference="piW-sz-qxm"/>
-                                <exclude reference="2sk-ZW-nPt"/>
-                                <exclude reference="nyU-oX-NMg"/>
-                                <exclude reference="wDc-Qe-eEn"/>
-                                <exclude reference="yhp-Ep-f2R"/>
-                                <exclude reference="xOd-5e-aoO"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -424,6 +424,19 @@
                                 <include reference="sR9-iL-Q9x"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="xOd-5e-aoO"/>
+                                <include reference="12p-N7-3Gl"/>
+                                <include reference="PCT-VP-AmT"/>
+                                <exclude reference="l72-Vo-HpM"/>
+                                <include reference="8TX-gy-cJj"/>
+                                <include reference="AU9-XE-KvW"/>
+                                <include reference="Eaj-Cz-ZjX"/>
+                                <exclude reference="KVr-GU-9tR"/>
+                                <include reference="piW-sz-qxm"/>
+                                <include reference="2sk-ZW-nPt"/>
+                                <include reference="nyU-oX-NMg"/>
+                                <exclude reference="wDc-Qe-eEn"/>
+                                <include reference="yhp-Ep-f2R"/>
                                 <include reference="My4-Tc-88E"/>
                                 <include reference="OE8-nc-iOc"/>
                                 <include reference="g81-WL-rg3"/>
@@ -437,19 +450,6 @@
                                 <exclude reference="bai-BR-Pt0"/>
                                 <exclude reference="kGt-mW-OhX"/>
                                 <include reference="rYb-Yk-7jb"/>
-                                <include reference="12p-N7-3Gl"/>
-                                <include reference="PCT-VP-AmT"/>
-                                <exclude reference="l72-Vo-HpM"/>
-                                <include reference="8TX-gy-cJj"/>
-                                <include reference="AU9-XE-KvW"/>
-                                <include reference="Eaj-Cz-ZjX"/>
-                                <exclude reference="KVr-GU-9tR"/>
-                                <include reference="piW-sz-qxm"/>
-                                <include reference="2sk-ZW-nPt"/>
-                                <include reference="nyU-oX-NMg"/>
-                                <exclude reference="wDc-Qe-eEn"/>
-                                <include reference="yhp-Ep-f2R"/>
-                                <include reference="xOd-5e-aoO"/>
                             </mask>
                         </variation>
                     </view>

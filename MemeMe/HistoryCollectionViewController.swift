@@ -9,36 +9,36 @@
 import UIKit
 
 class HistoryCollectionViewController : HistoryGeneralController, UICollectionViewDataSource, UICollectionViewDelegate {
+  
+  @IBOutlet var memeCollectionView: UICollectionView!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    addShowEditorButton()
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(true)
+    fetchMemesFromAppDelegate()
+    memeCollectionView.reloadData()
+  }
+  
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return memes.count
+  }
+  
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let memeCell = collectionView.dequeueReusableCellWithReuseIdentifier("memeCollectionCell", forIndexPath: indexPath) as! MemeCollectionViewCell
+    let meme = memes[indexPath.row]
+    memeCell.memeImage.image = meme.memedImage
+    return memeCell
+  }
+  
+  func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+    detailViewController.meme = memes[indexPath.row]
     
-    @IBOutlet var memeCollectionView: UICollectionView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addShowEditorButton()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        fetchMemesFromAppDelegate()
-        memeCollectionView.reloadData()
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return memes.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let memeCell = collectionView.dequeueReusableCellWithReuseIdentifier("memeCollectionCell", forIndexPath: indexPath) as! MemeCollectionViewCell
-        let meme = memes[indexPath.row]
-        memeCell.memeImage.image = meme.memedImage
-        return memeCell
-    }
-    
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
-        detailViewController.meme = memes[indexPath.row]
-        
-        self.navigationController!.pushViewController(detailViewController, animated: true)
-    }
-    
+    self.navigationController!.pushViewController(detailViewController, animated: true)
+  }
+  
 }

@@ -177,4 +177,14 @@ extension MemeEditorViewController : UITextFieldDelegate {
     return true
   }
   
+  // Eventhough we specify capitalization for all chars
+  // we do it here in case the laptop keyboard is used when 
+  // runnng the simulator
+  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    if string.isEmpty {
+      return true
+    }
+    textField.text = textField.text + string.uppercaseString
+    return false
+  }
 }

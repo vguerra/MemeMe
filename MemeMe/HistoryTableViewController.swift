@@ -9,6 +9,7 @@
 import UIKit
 
 class HistoryTableViewController : HistoryGeneralController, UITableViewDataSource, UITableViewDelegate {
+  
   @IBOutlet var sentMemesTableView: UITableView!
   
   override func viewDidLoad() {
@@ -27,14 +28,15 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let memeCell = tableView.dequeueReusableCellWithIdentifier("memeTableCell") as! MemeTableViewCell
+    let memeCell = tableView.dequeueReusableCellWithIdentifier("memeTableCell", forIndexPath: indexPath) as! MemeTableViewCell
     let meme = memes![indexPath.row]
-    memeCell.memeLabel.text = meme.topText + meme.bottomText
+    memeCell.memeLabel.text = meme.topText + " ... " + meme.bottomText
     memeCell.memeImage.image = meme.memedImage
     return memeCell
   }
   
-  func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    println("did select row \(indexPath.row)")
     let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
     detailViewController.meme = memes[indexPath.row]
     

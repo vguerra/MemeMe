@@ -15,6 +15,11 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
   override func viewDidLoad() {
     super.viewDidLoad()
     addShowEditorButton()
+    
+    let width = CGRectGetWidth(memeCollectionView!.frame)/3
+    let flowLayout = UICollectionViewFlowLayout()
+    flowLayout.itemSize = CGSize(width: width, height: width)
+    memeCollectionView.collectionViewLayout = flowLayout
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -34,7 +39,7 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     return memeCell
   }
   
-  func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
     detailViewController.meme = memes[indexPath.row]
     

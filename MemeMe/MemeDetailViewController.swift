@@ -16,4 +16,9 @@ class MemeDetailViewController : UIViewController {
     super.viewWillAppear(true)
     memeImage.image = meme.memedImage
   }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
+  
 }

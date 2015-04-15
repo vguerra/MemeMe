@@ -9,11 +9,12 @@
 import UIKit
 
 class HistoryGeneralController : UIViewController {
+  
   var memes : [Meme]!
   
   func addShowEditorButton() {
     let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
-      target: self, action: "showMemeEditor")
+      target: self, action: "showMemeEditorAnimated")
     self.navigationItem.rightBarButtonItem = addButton
   }
   
@@ -22,9 +23,12 @@ class HistoryGeneralController : UIViewController {
     memes = appDelegate.memes
   }
   
-  func showMemeEditor() {
-    let memeEditorController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-    self.presentViewController(memeEditorController, animated: true, completion: nil)
+  func showMemeEditorAnimated() {
+    showMemeEditor(true)
   }
   
+  func showMemeEditor(animated: Bool) {
+    let memeEditorController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+    self.presentViewController(memeEditorController, animated: animated, completion: nil)
+  }
 }

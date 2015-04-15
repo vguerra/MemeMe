@@ -19,6 +19,6 @@ struct Meme {
       self.topText = topText
       self.bottomText = bottomText
       self.image = image
-      self.memedImage = image
+      self.memedImage = memedImage
   }
 }

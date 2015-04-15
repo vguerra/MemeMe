@@ -58,7 +58,12 @@ class MemeEditorViewController : UIViewController {
     super.viewWillDisappear(true)
     unsubscribeFromKeyboardNotifications()
   }
-  
+
+  // hidding the status bar
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
+
   @IBAction func showActivityController(sender: AnyObject) {
     memedImage = generateMemedImage()
     var activityController = UIActivityViewController(activityItems: [memedImage!],
@@ -78,6 +83,7 @@ class MemeEditorViewController : UIViewController {
   @IBAction func cancel(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
+
   
   func saveSharedMeme() {
     let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
@@ -172,6 +178,17 @@ extension MemeEditorViewController : UIImagePickerControllerDelegate, UINavigati
 
 // MARK: conforming to UITextField Delegate protocol
 extension MemeEditorViewController : UITextFieldDelegate {
+  
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    if textField.text == "TOP" || textField.text == "BOTTOM" {
+      textField.text = ""
+    }
+    return true
+  }
+  
+  func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    return true
+  }
   
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     return true

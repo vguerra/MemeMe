@@ -16,6 +16,8 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     super.viewDidLoad()
     addShowEditorButton()
     
+    // Adjusting the size of each cell acording to the 
+    // CollectionView dimensions
     let width = CGRectGetWidth(memeCollectionView!.frame)/3
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.itemSize = CGSize(width: width, height: width)
@@ -28,6 +30,7 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     memeCollectionView.reloadData()
   }
   
+  // MARK: Conforming to the UICollectionViewDataSource protocol
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return memes.count
   }
@@ -39,6 +42,7 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     return memeCell
   }
   
+  // MARK: Conforming to the UICollectionViewDelegate protocol
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
     detailViewController.meme = memes[indexPath.row]

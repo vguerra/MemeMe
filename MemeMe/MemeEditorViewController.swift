@@ -191,7 +191,8 @@ extension MemeEditorViewController : UITextFieldDelegate {
   }
   
   func textFieldShouldReturn(textField: UITextField) -> Bool {
-    return true
+    textField.resignFirstResponder()
+    return false
   }
   
   // Eventhough we specify capitalization for all chars

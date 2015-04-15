@@ -11,6 +11,7 @@ import UIKit
 class HistoryTableViewController : HistoryGeneralController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet var sentMemesTableView: UITableView!
+  var needToShowEditor: Bool = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -18,11 +19,22 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
   }
   
   override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(true)
+    super.viewWillAppear(animated)
     fetchMemesFromAppDelegate()
     sentMemesTableView.reloadData()
   }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    // When the view appears for the 1st time no Memes
+    // so we show automatically the editor
+    if needToShowEditor {
+      showMemeEditor(false)
+      needToShowEditor = false
+    }
+  }
+  
+  // MARK: Conforming to UITableViewDataSource protocol
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return memes!.count
   }
@@ -35,8 +47,8 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     return memeCell
   }
   
+  // MARK: Conforming to UITableViewDelegate protocol
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    println("did select row \(indexPath.row)")
     let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
     detailViewController.meme = memes[indexPath.row]
     

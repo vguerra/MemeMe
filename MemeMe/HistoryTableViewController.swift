@@ -11,17 +11,18 @@ import UIKit
 class HistoryTableViewController : HistoryGeneralController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet var sentMemesTableView: UITableView!
+  @IBOutlet weak var editTableButton: UIBarButtonItem!
+  
+  // tracking if we presented the editor for the first time
   var needToShowEditor: Bool = true
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    addShowEditorButton()
-  }
-  
+  // MARK: Life cycle
+    
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     fetchMemesFromAppDelegate()
     sentMemesTableView.reloadData()
+    editTableButton.enabled = memes.count > 0
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -29,9 +30,23 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     // When the view appears for the 1st time no Memes
     // so we show automatically the editor
     if needToShowEditor {
-      showMemeEditor(false)
+      showModalMemeEditor(false)
       needToShowEditor = false
     }
+  }
+  
+  // MARK: IB Actions
+  @IBAction func toggleTableEditMode(sender: UIBarButtonItem) {
+    if sentMemesTableView.editing {
+      editTableButton.title = "Edit"
+    } else {
+      editTableButton.title = "Done"
+    }
+    sentMemesTableView.setEditing(!sentMemesTableView.editing, animated: true)
+  }
+  
+  @IBAction func showMemeEditor(sender: UIBarButtonItem) {
+    showModalMemeEditor(true)
   }
   
   // MARK: Conforming to UITableViewDataSource protocol
@@ -47,11 +62,15 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     return memeCell
   }
   
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == .Delete {
+      deleteMemeAtIndex(indexPath.row)
+      tableView.reloadData()
+    }
+  }
+  
   // MARK: Conforming to UITableViewDelegate protocol
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
-    detailViewController.meme = memes[indexPath.row]
-    
-    self.navigationController!.pushViewController(detailViewController, animated: true)
+    showDetailControllerWithMemeAt(indexPath.row)
   }
 }

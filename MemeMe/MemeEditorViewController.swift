@@ -77,13 +77,17 @@ class MemeEditorViewController : UIViewController {
     returnedItems: [AnyObject]!, activityError: NSError!) {
       if completed {
         saveSharedMeme()
+        dismissMemeEditor()
       }
   }
   
   @IBAction func cancel(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    dismissMemeEditor()
   }
 
+  func dismissMemeEditor() {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
   
   func saveSharedMeme() {
     let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
@@ -183,10 +187,6 @@ extension MemeEditorViewController : UITextFieldDelegate {
     if textField.text == "TOP" || textField.text == "BOTTOM" {
       textField.text = ""
     }
-    return true
-  }
-  
-  func textFieldShouldEndEditing(textField: UITextField) -> Bool {
     return true
   }
   

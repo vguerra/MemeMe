@@ -12,12 +12,12 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
   
   @IBOutlet var memeCollectionView: UICollectionView!
   
+  // MARK: View life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    addShowEditorButton()
     
-    // Adjusting the size of each cell acording to the 
-    // CollectionView dimensions
+    // Adjusting the size of each cell acording to the
+    // collectionView dimensions
     let width = CGRectGetWidth(memeCollectionView!.frame)/3
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.itemSize = CGSize(width: width, height: width)
@@ -30,6 +30,11 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     memeCollectionView.reloadData()
   }
   
+  // MARK: IB Actions
+  @IBAction func showMemeEditor(sender: UIBarButtonItem) {
+    showModalMemeEditor(true)
+  }
+
   // MARK: Conforming to the UICollectionViewDataSource protocol
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return memes.count
@@ -44,10 +49,6 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
   
   // MARK: Conforming to the UICollectionViewDelegate protocol
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
-    detailViewController.meme = memes[indexPath.row]
-    
-    self.navigationController!.pushViewController(detailViewController, animated: true)
+    showDetailControllerWithMemeAt(indexPath.row)
   }
-  
 }

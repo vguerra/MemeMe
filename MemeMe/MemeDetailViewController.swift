@@ -8,20 +8,24 @@
 
 import UIKit
 
-class MemeDetailViewController : UIViewController {
-  var meme : Meme!
+class MemeDetailViewController : HistoryGeneralController {
+
   var memeIndex : Int!
-  let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
   
   @IBOutlet weak var memeImage: UIImageView!
   
   // MARK: View life cycle
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(false)
-    memeImage.image = meme.memedImage
+    fetchMemesFromAppDelegate()
+    memeImage.image = memes![memeIndex].memedImage
   }
   
   // MARK: Actions
+  @IBAction func editMeme(sender: UIBarButtonItem) {
+    showModalMemeEditor(true, withMeMeAtIndex: memeIndex)
+  }
+  
   @IBAction func deleteMeme(sender: AnyObject) {
     weak var wself: MemeDetailViewController? = self
     

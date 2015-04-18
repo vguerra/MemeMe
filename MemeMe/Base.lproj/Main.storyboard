@@ -218,6 +218,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YkB-lx-efp">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wea-d0-sAj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -238,11 +239,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YkB-lx-efp" firstAttribute="top" secondItem="Gwd-bc-WZV" secondAttribute="topMargin" id="2n1-T6-5tt"/>
                             <constraint firstItem="Wea-d0-sAj" firstAttribute="leading" secondItem="Gwd-bc-WZV" secondAttribute="leadingMargin" constant="-16" id="NY2-mQ-wUi"/>
                             <constraint firstAttribute="trailing" secondItem="YkB-lx-efp" secondAttribute="trailing" id="Qlm-dW-Cbl"/>
                             <constraint firstItem="Wea-d0-sAj" firstAttribute="top" secondItem="YkB-lx-efp" secondAttribute="bottom" id="V1I-nJ-kbc"/>
                             <constraint firstItem="YkB-lx-efp" firstAttribute="leading" secondItem="Gwd-bc-WZV" secondAttribute="leading" id="Vmj-k9-oAG"/>
+                            <constraint firstItem="XE8-cf-D61" firstAttribute="top" secondItem="YkB-lx-efp" secondAttribute="bottom" id="Xr1-Zw-1WP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wea-d0-sAj" secondAttribute="trailing" constant="-16" id="aiF-sb-5YT"/>
+                            <constraint firstItem="YkB-lx-efp" firstAttribute="bottom" secondItem="Gwd-bc-WZV" secondAttribute="bottomMargin" id="kwv-Zj-ScP"/>
                             <constraint firstItem="XE8-cf-D61" firstAttribute="bottom" secondItem="Wea-d0-sAj" secondAttribute="bottom" id="mAW-fs-XCi"/>
                             <constraint firstAttribute="centerX" secondItem="Wea-d0-sAj" secondAttribute="centerX" id="mEK-ih-bdG"/>
                             <constraint firstAttribute="centerX" secondItem="YkB-lx-efp" secondAttribute="centerX" id="rZz-HM-eZW"/>
@@ -254,15 +258,18 @@
                                 <exclude reference="Wea-d0-sAj"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="mAW-fs-XCi"/>
+                                <exclude reference="2n1-T6-5tt"/>
+                                <exclude reference="Qlm-dW-Cbl"/>
+                                <exclude reference="Vmj-k9-oAG"/>
+                                <exclude reference="kwv-Zj-ScP"/>
+                                <exclude reference="rZz-HM-eZW"/>
+                                <exclude reference="xz9-2Z-k2u"/>
                                 <exclude reference="NY2-mQ-wUi"/>
                                 <exclude reference="V1I-nJ-kbc"/>
                                 <exclude reference="aiF-sb-5YT"/>
                                 <exclude reference="mEK-ih-bdG"/>
-                                <exclude reference="Qlm-dW-Cbl"/>
-                                <exclude reference="Vmj-k9-oAG"/>
-                                <exclude reference="rZz-HM-eZW"/>
-                                <exclude reference="xz9-2Z-k2u"/>
+                                <exclude reference="Xr1-Zw-1WP"/>
+                                <exclude reference="mAW-fs-XCi"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -271,15 +278,18 @@
                                 <include reference="Wea-d0-sAj"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="mAW-fs-XCi"/>
-                                <include reference="NY2-mQ-wUi"/>
-                                <include reference="V1I-nJ-kbc"/>
-                                <include reference="aiF-sb-5YT"/>
-                                <include reference="mEK-ih-bdG"/>
+                                <include reference="2n1-T6-5tt"/>
                                 <include reference="Qlm-dW-Cbl"/>
                                 <include reference="Vmj-k9-oAG"/>
+                                <include reference="kwv-Zj-ScP"/>
                                 <include reference="rZz-HM-eZW"/>
-                                <include reference="xz9-2Z-k2u"/>
+                                <exclude reference="xz9-2Z-k2u"/>
+                                <include reference="NY2-mQ-wUi"/>
+                                <exclude reference="V1I-nJ-kbc"/>
+                                <include reference="aiF-sb-5YT"/>
+                                <include reference="mEK-ih-bdG"/>
+                                <exclude reference="Xr1-Zw-1WP"/>
+                                <include reference="mAW-fs-XCi"/>
                             </mask>
                         </variation>
                     </view>

@@ -22,16 +22,19 @@ class HistoryGeneralController : UIViewController {
       fetchMemesFromAppDelegate()
   }
   
-  func showModalMemeEditor(animated: Bool) {
+  func showModalMemeEditor(animated: Bool, withMeMeAtIndex: Int? = nil) {
     let memeEditorController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+    
+    if let index = withMeMeAtIndex {
+      memeEditorController.meme = memes![index]
+    }
+
     self.presentViewController(memeEditorController, animated: animated, completion: nil)
   }
   
   func showDetailControllerWithMemeAt(index: Int) {
     let detailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
-    detailViewController.meme = memes[index]
     detailViewController.memeIndex = index
-    
     detailViewController.hidesBottomBarWhenPushed = true
     
     self.navigationController!.pushViewController(detailViewController, animated: true)

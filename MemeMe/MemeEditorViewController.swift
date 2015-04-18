@@ -22,7 +22,6 @@ class MemeEditorViewController : UIViewController {
   
   var memedImage: UIImage?
   var meme: Meme?
-  
   var memes:[Meme]!
   
   // Dictionary that contains the keyboard notifications we want
@@ -30,6 +29,7 @@ class MemeEditorViewController : UIViewController {
   let keyboardNotifications = [UIKeyboardWillShowNotification : "keyboardWillShow:",
     UIKeyboardWillHideNotification: "keyboardWillHide:"]
   
+  // MARK: View life cycle
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(true)
     
@@ -52,6 +52,19 @@ class MemeEditorViewController : UIViewController {
     // Keyboard Notifications
     subscribeToKeyboardNotifications()
     
+    // In case we come from the Detail Scene
+    if let memeValue = meme {
+      topTextField.text = memeValue.topText
+      bottomTextField.text = memeValue.bottomText
+      previewImage.image = memeValue.image
+      setUIElementsEnabled(true)
+    } else if previewImage.image == nil {
+      // Disabling some elements that should be enabled
+      // when we choose an image
+      setUIElementsEnabled(false)
+    } else {
+      setUIElementsEnabled(true)
+    }
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -59,11 +72,12 @@ class MemeEditorViewController : UIViewController {
     unsubscribeFromKeyboardNotifications()
   }
 
-  // hidding the status bar
+  // MARK: View controller config
   override func prefersStatusBarHidden() -> Bool {
     return true
   }
 
+  // MARK: IB Actions
   @IBAction func showActivityController(sender: AnyObject) {
     memedImage = generateMemedImage()
     var activityController = UIActivityViewController(activityItems: [memedImage!],
@@ -71,6 +85,26 @@ class MemeEditorViewController : UIViewController {
     activityController.completionWithItemsHandler = activityControllerFinished
     
     self.presentViewController(activityController, animated: true, completion: nil)
+  }
+
+  @IBAction func cancel(sender: AnyObject) {
+    dismissMemeEditor()
+  }
+
+  @IBAction func pickImageFromCamara(sender: UIBarButtonItem) {
+    presentImagePickerWithSource(UIImagePickerControllerSourceType.Camera)
+  }
+  
+  @IBAction func pickImageFromAlbum(sender: UIBarButtonItem) {
+    presentImagePickerWithSource(UIImagePickerControllerSourceType.PhotoLibrary)
+  }
+  
+  // MARK: Utilities
+
+  func setUIElementsEnabled(state: Bool) {
+    activityButton.enabled = state
+    topTextField.enabled = state
+    bottomTextField.enabled = state
   }
   
   func activityControllerFinished(activityType:String!, completed: Bool,
@@ -81,10 +115,6 @@ class MemeEditorViewController : UIViewController {
       }
   }
   
-  @IBAction func cancel(sender: AnyObject) {
-    dismissMemeEditor()
-  }
-
   func dismissMemeEditor() {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
@@ -130,15 +160,7 @@ class MemeEditorViewController : UIViewController {
     return keyboardSize.CGRectValue().height
   }
   
-  // MARK: Picking Image from Camara and Albums
-  
-  @IBAction func pickImageFromCamara(sender: UIBarButtonItem) {
-    presentImagePickerWithSource(UIImagePickerControllerSourceType.Camera)
-  }
-  
-  @IBAction func pickImageFromAlbum(sender: UIBarButtonItem) {
-    presentImagePickerWithSource(UIImagePickerControllerSourceType.PhotoLibrary)
-  }
+  // MARK: Picking Image from Camera and Albums
   
   /// Showing an ImagePicker given a Source Type.
   func presentImagePickerWithSource(sourceType: UIImagePickerControllerSourceType) {
@@ -173,8 +195,6 @@ extension MemeEditorViewController : UIImagePickerControllerDelegate, UINavigati
     didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
       if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
         previewImage.image = image
-        // Now we enable the Activity button
-        activityButton.enabled = true
         picker.dismissViewControllerAnimated(true, completion: nil)
       }
   }

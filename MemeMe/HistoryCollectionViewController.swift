@@ -11,6 +11,7 @@ import UIKit
 class HistoryCollectionViewController : HistoryGeneralController, UICollectionViewDataSource, UICollectionViewDelegate {
   
   @IBOutlet var memeCollectionView: UICollectionView!
+  @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
   
   // MARK: View life cycle
   override func viewDidLoad() {
@@ -18,10 +19,11 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     
     // Adjusting the size of each cell acording to the
     // collectionView dimensions
-    let width = CGRectGetWidth(memeCollectionView!.frame)/3
-    let flowLayout = UICollectionViewFlowLayout()
+    let minSpace = CGFloat(2.0)
+    let width = (CGRectGetWidth(memeCollectionView!.frame) - 2*minSpace)/3
     flowLayout.itemSize = CGSize(width: width, height: width)
-    memeCollectionView.collectionViewLayout = flowLayout
+    flowLayout.minimumInteritemSpacing = minSpace
+    flowLayout.minimumLineSpacing = minSpace
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -36,6 +38,7 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
   }
 
   // MARK: Conforming to the UICollectionViewDataSource protocol
+  
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return memes.count
   }

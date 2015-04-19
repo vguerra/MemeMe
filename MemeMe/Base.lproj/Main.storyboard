@@ -202,11 +202,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2GO-xW-Ykn" secondAttribute="trailing" id="5Mj-Oj-bx8"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="2GO-xW-Ykn" secondAttribute="bottom" id="DSU-8R-R6o">
-                                        <variation key="widthClass=compact" constant="-8"/>
+                                    <constraint firstAttribute="bottom" secondItem="2GO-xW-Ykn" secondAttribute="bottom" id="DSU-8R-R6o">
+                                        <variation key="widthClass=compact" constant="1"/>
                                     </constraint>
                                     <constraint firstItem="2GO-xW-Ykn" firstAttribute="top" secondItem="ku1-sv-40n" secondAttribute="top" id="cYD-ku-ngE"/>
                                     <constraint firstItem="2GO-xW-Ykn" firstAttribute="leading" secondItem="ku1-sv-40n" secondAttribute="leading" id="ifq-mV-WSZ"/>

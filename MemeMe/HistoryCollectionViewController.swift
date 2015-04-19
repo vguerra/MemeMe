@@ -36,9 +36,6 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
         super.viewWillAppear(true)
         fetchMemesFromAppDelegate()
         memeCollectionView.reloadData()
-        
-        
-        
     }
     
     // MARK: IB Actions
@@ -47,7 +44,6 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     }
     
     // MARK: Conforming to the UICollectionViewDataSource protocol
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.count
     }

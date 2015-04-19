@@ -20,10 +20,13 @@ class MemeEditorViewController : UIViewController {
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
     
+    // In case we are editing a Meme, we need to know where to store
+    // the result
     var memeIndex: Int?
+    // We store the resulting memedImage here
     var memedImage: UIImage?
+    // In case a meme we want to edit, we recieve the meme.
     var meme: Meme?
-    var memes:[Meme]!
     
     // Dictionary that contains the keyboard notifications we want
     // to subscribe to / unsubscribe from
@@ -53,7 +56,8 @@ class MemeEditorViewController : UIViewController {
         // Keyboard Notifications
         subscribeToKeyboardNotifications()
         
-        // In case we come from the Detail Scene
+        // In case we want to edit an existing meme we populate the editor
+        // with the corresponding info
         if let memeValue = meme {
             topTextField.text = memeValue.topText
             bottomTextField.text = memeValue.bottomText
@@ -101,13 +105,17 @@ class MemeEditorViewController : UIViewController {
     }
     
     // MARK: Utilities
-    
     func setUIElementsEnabled(state: Bool) {
         activityButton.enabled = state
         topTextField.enabled = state
         bottomTextField.enabled = state
     }
+
+    func dismissMemeEditor() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
+    // Completion handler for activity controller
     func activityControllerFinished(activityType:String!, completed: Bool,
         returnedItems: [AnyObject]!, activityError: NSError!) {
             if completed {
@@ -116,12 +124,11 @@ class MemeEditorViewController : UIViewController {
             }
     }
     
-    func dismissMemeEditor() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
+    // Saving the Meme user just shared
     func saveSharedMeme() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        // In case we were editing a meme, we update meme's info
+        // otherwise we create a new one
         if let memeIndexValue = memeIndex {
             appDelegate.memes[memeIndexValue].topText = topTextField.text!
             appDelegate.memes[memeIndexValue].bottomText = bottomTextField.text!
@@ -132,6 +139,21 @@ class MemeEditorViewController : UIViewController {
                 image: previewImage.image!, memedImage: memedImage!)
             appDelegate.memes.append(meme)
         }
+    }
+    
+    // Generate MemedImage
+    func generateMemedImage() -> UIImage {
+        topToolBar.hidden = true
+        bottomToolbar.hidden = true
+        
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        topToolBar.hidden = false
+        bottomToolbar.hidden = false
+        return memedImage
     }
     
     // MARK: Keyboard handling and notifications
@@ -178,21 +200,6 @@ class MemeEditorViewController : UIViewController {
         self.presentViewController(imagePickerView, animated: true, completion: nil)
     }
     
-    // Generate MemedImage
-    func generateMemedImage() -> UIImage {
-        topToolBar.hidden = true
-        bottomToolbar.hidden = true
-        
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
-        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        topToolBar.hidden = false
-        bottomToolbar.hidden = false
-        return memedImage
-    }
-    
 }
 
 // MARK: conforming to UIImagePickerControllerDelegate protocol
@@ -223,7 +230,7 @@ extension MemeEditorViewController : UITextFieldDelegate {
         return false
     }
     
-    // Eventhough we specify capitalization for all chars
+    // Eventhough we specify capitalization for all chars on the storyboard
     // we do it here in case the laptop keyboard is used when 
     // runnng the simulator
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View Cell used to display a meme Image in a Collection View.
 class MemeCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var memeImage: UIImageView!
 }

@@ -16,8 +16,7 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     // tracking if we presented the editor for the first time
     var needToShowEditor: Bool = true
     
-    // MARK: Life cycle
-    
+    // MARK: Life cycle    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fetchMemesFromAppDelegate()
@@ -57,8 +56,8 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let memeCell = tableView.dequeueReusableCellWithIdentifier("memeTableCell", forIndexPath: indexPath) as! MemeTableViewCell
         let meme = memes![indexPath.row]
-        memeCell.memeLabel.text = meme.topText + " ... " + meme.bottomText
-        memeCell.memeImage.image = meme.memedImage
+        memeCell.memeLabel.text = meme.topText! + " ... " + meme.bottomText!
+        memeCell.memeImage.image = meme.memedImage!
         return memeCell
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// A simple View Cell that encapsulates a Label that combines 
+/// bottom and top text and the Memed Image used in Table View
 class MemeTableViewCell : UITableViewCell {
     
     @IBOutlet weak var memeLabel: UILabel!

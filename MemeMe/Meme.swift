@@ -12,13 +12,13 @@ import UIKit
 /// creating a Meme image
 
 struct Meme {
-    /// Top text of image
+    /// Top text of Meme
     var topText: String?
-    /// Bottom text of the Image
+    /// Bottom text of the Meme
     var bottomText: String?
-    /// Original Image the meme is generated from
+    /// Original Image the Meme is generated from
     var image: UIImage?
-    /// The result meme Image
+    /// The result Meme Image
     var memedImage: UIImage?
 
     /// Initializes a Meme object with all its memebers

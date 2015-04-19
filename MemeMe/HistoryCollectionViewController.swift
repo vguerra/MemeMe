@@ -18,9 +18,15 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     super.viewDidLoad()
     
     // Adjusting the size of each cell acording to the
-    // collectionView dimensions
+    // collectionView dimensions and screen orientation
     let minSpace = CGFloat(2.0)
-    let width = (CGRectGetWidth(memeCollectionView!.frame) - 2*minSpace)/3
+    var width:CGFloat
+    if (UIApplication.sharedApplication().statusBarOrientation == .Portrait) {
+      width = CGRectGetWidth(memeCollectionView!.frame)
+    } else {
+      width = CGRectGetHeight(memeCollectionView!.frame)
+    }
+    width = (width - 2*minSpace)/3
     flowLayout.itemSize = CGSize(width: width, height: width)
     flowLayout.minimumInteritemSpacing = minSpace
     flowLayout.minimumLineSpacing = minSpace
@@ -30,6 +36,9 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
     super.viewWillAppear(true)
     fetchMemesFromAppDelegate()
     memeCollectionView.reloadData()
+
+
+  
   }
   
   // MARK: IB Actions

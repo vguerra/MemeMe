@@ -34,7 +34,7 @@ class MemeDetailViewController : HistoryGeneralController {
         let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        let confirmAction = UIAlertAction(title: "Yes, delete!", style: .Default) { _  in
+        let confirmAction = UIAlertAction(title: "Yes, delete it!", style: .Default) { _  in
             if let sself = wself {
                 sself.appDelegate.memes.removeAtIndex(sself.memeIndex)
                 sself.navigationController?.popViewControllerAnimated(true)

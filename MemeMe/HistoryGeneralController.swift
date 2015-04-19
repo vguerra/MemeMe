@@ -27,6 +27,7 @@ class HistoryGeneralController : UIViewController {
         
         if let index = withMeMeAtIndex {
             memeEditorController.meme = memes![index]
+            memeEditorController.memeIndex = index
         }
         
         self.presentViewController(memeEditorController, animated: animated, completion: nil)

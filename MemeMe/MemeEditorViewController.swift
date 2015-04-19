@@ -20,6 +20,7 @@ class MemeEditorViewController : UIViewController {
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
     
+    var memeIndex: Int?
     var memedImage: UIImage?
     var meme: Meme?
     var memes:[Meme]!
@@ -120,10 +121,17 @@ class MemeEditorViewController : UIViewController {
     }
     
     func saveSharedMeme() {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
-            image: previewImage.image!, memedImage: memedImage!)
-        (UIApplication.sharedApplication().delegate
-            as! AppDelegate).memes.append(meme)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let memeIndexValue = memeIndex {
+            appDelegate.memes[memeIndexValue].topText = topTextField.text!
+            appDelegate.memes[memeIndexValue].bottomText = bottomTextField.text!
+            appDelegate.memes[memeIndexValue].image = previewImage.image!
+            appDelegate.memes[memeIndexValue].memedImage = memedImage!
+        } else {
+            let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
+                image: previewImage.image!, memedImage: memedImage!)
+            appDelegate.memes.append(meme)
+        }
     }
     
     // MARK: Keyboard handling and notifications

@@ -10,14 +10,18 @@ import UIKit
 
 /// Meme objects contain all information necesary for
 /// creating a Meme image
-/// Its members are all constants
+
 struct Meme {
     /// Top text of image
-    let topText: String
-    let bottomText: String
-    let image: UIImage
-    let memedImage: UIImage
-    
+    var topText: String?
+    /// Bottom text of the Image
+    var bottomText: String?
+    /// Original Image the meme is generated from
+    var image: UIImage?
+    /// The result meme Image
+    var memedImage: UIImage?
+
+    /// Initializes a Meme object with all its memebers
     init (topText: String, bottomText: String,
         image: UIImage, memedImage: UIImage) {
             self.topText = topText

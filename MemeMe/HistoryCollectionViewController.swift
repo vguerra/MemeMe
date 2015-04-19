@@ -38,6 +38,15 @@ class HistoryCollectionViewController : HistoryGeneralController, UICollectionVi
         memeCollectionView.reloadData()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // When the view appears for the 1st time no Memes
+        // so we show automatically the editor
+        if memes.count == 0 {
+            showModalMemeEditor(true)
+        }
+    }
+
     // MARK: IB Actions
     @IBAction func showMemeEditor(sender: UIBarButtonItem) {
         showModalMemeEditor(true)

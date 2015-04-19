@@ -13,10 +13,7 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
     @IBOutlet var sentMemesTableView: UITableView!
     @IBOutlet weak var editTableButton: UIBarButtonItem!
     
-    // tracking if we presented the editor for the first time
-    var needToShowEditor: Bool = true
-    
-    // MARK: Life cycle    
+    // MARK: Life cycle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fetchMemesFromAppDelegate()
@@ -28,9 +25,8 @@ class HistoryTableViewController : HistoryGeneralController, UITableViewDataSour
         super.viewDidAppear(animated)
         // When the view appears for the 1st time no Memes
         // so we show automatically the editor
-        if needToShowEditor {
-            showModalMemeEditor(false)
-            needToShowEditor = false
+        if memes.count == 0 {
+            showModalMemeEditor(true)
         }
     }
     

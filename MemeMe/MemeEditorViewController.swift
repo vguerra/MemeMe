@@ -85,7 +85,7 @@ class MemeEditorViewController : UIViewController {
     // MARK: IB Actions
     @IBAction func showActivityController(sender: AnyObject) {
         memedImage = generateMemedImage()
-        var activityController = UIActivityViewController(activityItems: [memedImage!],
+        let activityController = UIActivityViewController(activityItems: [memedImage!],
             applicationActivities: nil)
         activityController.completionWithItemsHandler = activityControllerFinished
         
@@ -116,8 +116,8 @@ class MemeEditorViewController : UIViewController {
     }
     
     // Completion handler for activity controller
-    func activityControllerFinished(activityType:String!, completed: Bool,
-        returnedItems: [AnyObject]!, activityError: NSError!) {
+    func activityControllerFinished(activityType:String?, completed: Bool,
+        returnedItems: [AnyObject]?, activityError: NSError?) {
             if completed {
                 saveSharedMeme()
                 dismissMemeEditor()
@@ -207,11 +207,11 @@ class MemeEditorViewController : UIViewController {
 extension MemeEditorViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                previewImage.image = image
-                picker.dismissViewControllerAnimated(true, completion: nil)
-            }
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            previewImage.image = image
+            picker.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 }
 
@@ -237,7 +237,7 @@ extension MemeEditorViewController : UITextFieldDelegate {
         if string.isEmpty {
             return true
         }
-        textField.text = textField.text + string.uppercaseString
+        textField.text = textField.text! + string.uppercaseString
         return false
     }
 }
